@@ -21,9 +21,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"helm.sh/helm/v3/cmd/helm/require"
-	"helm.sh/helm/v3/pkg/plugin"
-	"helm.sh/helm/v3/pkg/plugin/installer"
+	"github.com/reynencourt/helm/v3/cmd/helm/require"
+	"github.com/reynencourt/helm/v3/pkg/plugin"
+	"github.com/reynencourt/helm/v3/pkg/plugin/installer"
 )
 
 type pluginInstallOptions struct {

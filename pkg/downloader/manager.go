@@ -31,15 +31,15 @@ import (
 	"github.com/pkg/errors"
 	"sigs.k8s.io/yaml"
 
-	"helm.sh/helm/v3/internal/resolver"
-	"helm.sh/helm/v3/internal/third_party/dep/fs"
-	"helm.sh/helm/v3/internal/urlutil"
-	"helm.sh/helm/v3/pkg/chart"
-	"helm.sh/helm/v3/pkg/chart/loader"
-	"helm.sh/helm/v3/pkg/chartutil"
-	"helm.sh/helm/v3/pkg/getter"
-	"helm.sh/helm/v3/pkg/helmpath"
-	"helm.sh/helm/v3/pkg/repo"
+	"github.com/reynencourt/helm/v3/internal/resolver"
+	"github.com/reynencourt/helm/v3/internal/third_party/dep/fs"
+	"github.com/reynencourt/helm/v3/internal/urlutil"
+	"github.com/reynencourt/helm/v3/pkg/chart"
+	"github.com/reynencourt/helm/v3/pkg/chart/loader"
+	"github.com/reynencourt/helm/v3/pkg/chartutil"
+	"github.com/reynencourt/helm/v3/pkg/getter"
+	"github.com/reynencourt/helm/v3/pkg/helmpath"
+	"github.com/reynencourt/helm/v3/pkg/repo"
 )
 
 // Manager handles the lifecycle of fetching, resolving, and storing dependencies.

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main // import "helm.sh/helm/v3/cmd/helm"
+package main // import "github.com/reynencourt/helm/v3/cmd/helm"
 
 import (
 	"flag"
@@ -30,9 +30,9 @@ import (
 	// Import to initialize client auth plugins.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
-	"helm.sh/helm/v3/pkg/action"
-	"helm.sh/helm/v3/pkg/cli"
-	"helm.sh/helm/v3/pkg/gates"
+	"github.com/reynencourt/helm/v3/pkg/action"
+	"github.com/reynencourt/helm/v3/pkg/cli"
+	"github.com/reynencourt/helm/v3/pkg/gates"
 )
 
 // FeatureGateOCI is the feature gate for checking if `helm chart` and `helm registry` commands should work

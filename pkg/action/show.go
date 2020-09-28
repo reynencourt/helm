@@ -22,9 +22,9 @@ import (
 
 	"sigs.k8s.io/yaml"
 
-	"helm.sh/helm/v3/pkg/chart"
-	"helm.sh/helm/v3/pkg/chart/loader"
-	"helm.sh/helm/v3/pkg/chartutil"
+	"github.com/reynencourt/helm/v3/pkg/chart"
+	"github.com/reynencourt/helm/v3/pkg/chart/loader"
+	"github.com/reynencourt/helm/v3/pkg/chartutil"
 )
 
 type ShowOutputFormat string

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package main // import "helm.sh/helm/v3/cmd/helm"
+package main // import "github.com/reynencourt/helm/v3/cmd/helm"
 
 import (
 	"fmt"
@@ -25,10 +25,10 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"helm.sh/helm/v3/cmd/helm/require"
-	"helm.sh/helm/v3/internal/completion"
-	"helm.sh/helm/v3/internal/experimental/registry"
-	"helm.sh/helm/v3/pkg/action"
+	"github.com/reynencourt/helm/v3/cmd/helm/require"
+	"github.com/reynencourt/helm/v3/internal/completion"
+	"github.com/reynencourt/helm/v3/internal/experimental/registry"
+	"github.com/reynencourt/helm/v3/pkg/action"
 )
 
 const (

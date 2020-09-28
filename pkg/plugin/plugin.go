@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package plugin // import "helm.sh/helm/v3/pkg/plugin"
+package plugin // import "github.com/reynencourt/helm/v3/pkg/plugin"
 
 import (
 	"fmt"
@@ -25,7 +25,7 @@ import (
 
 	"sigs.k8s.io/yaml"
 
-	"helm.sh/helm/v3/pkg/cli"
+	"github.com/reynencourt/helm/v3/pkg/cli"
 )
 
 const pluginFileName = "plugin.yaml"

@@ -21,11 +21,11 @@ import (
 	"io"
 	"sort"
 
-	"helm.sh/helm/v3/pkg/cli"
+	"github.com/reynencourt/helm/v3/pkg/cli"
 
 	"github.com/spf13/cobra"
 
-	"helm.sh/helm/v3/cmd/helm/require"
+	"github.com/reynencourt/helm/v3/cmd/helm/require"
 )
 
 var (

@@ -22,9 +22,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"helm.sh/helm/v3/pkg/release"
-	"helm.sh/helm/v3/pkg/releaseutil"
-	helmtime "helm.sh/helm/v3/pkg/time"
+	"github.com/reynencourt/helm/v3/pkg/release"
+	"github.com/reynencourt/helm/v3/pkg/releaseutil"
+	helmtime "github.com/reynencourt/helm/v3/pkg/time"
 )
 
 // Uninstall is the action for uninstalling releases.

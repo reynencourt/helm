@@ -25,10 +25,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"helm.sh/helm/v3/cmd/helm/require"
-	"helm.sh/helm/v3/internal/completion"
-	"helm.sh/helm/v3/pkg/helmpath"
-	"helm.sh/helm/v3/pkg/repo"
+	"github.com/reynencourt/helm/v3/cmd/helm/require"
+	"github.com/reynencourt/helm/v3/internal/completion"
+	"github.com/reynencourt/helm/v3/pkg/helmpath"
+	"github.com/reynencourt/helm/v3/pkg/repo"
 )
 
 type repoRemoveOptions struct {

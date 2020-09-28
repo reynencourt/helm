@@ -32,8 +32,8 @@ import (
 
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 
-	"helm.sh/helm/v3/pkg/helmpath"
-	"helm.sh/helm/v3/pkg/kube"
+	"github.com/reynencourt/helm/v3/pkg/helmpath"
+	"github.com/reynencourt/helm/v3/pkg/kube"
 )
 
 // EnvSettings describes all of the environment settings.

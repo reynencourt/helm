@@ -20,8 +20,8 @@ import (
 	"path"
 	"regexp"
 
-	"helm.sh/helm/v3/pkg/release"
-	"helm.sh/helm/v3/pkg/releaseutil"
+	"github.com/reynencourt/helm/v3/pkg/release"
+	"github.com/reynencourt/helm/v3/pkg/releaseutil"
 )
 
 // ListStates represents zero or more status codes that a list item may have set

@@ -19,7 +19,7 @@ package action
 import (
 	"strings"
 
-	"helm.sh/helm/v3/pkg/releaseutil"
+	"github.com/reynencourt/helm/v3/pkg/releaseutil"
 )
 
 // resourcePolicyAnno is the annotation name for a resource policy
