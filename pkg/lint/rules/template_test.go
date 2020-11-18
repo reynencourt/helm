@@ -24,10 +24,10 @@ import (
 
 	"github.com/Masterminds/goutils"
 
-	"helm.sh/helm/v3/internal/test/ensure"
-	"helm.sh/helm/v3/pkg/chart"
-	"helm.sh/helm/v3/pkg/chartutil"
-	"helm.sh/helm/v3/pkg/lint/support"
+	"github.com/reynencourt/helm/v3/internal/test/ensure"
+	"github.com/reynencourt/helm/v3/pkg/chart"
+	"github.com/reynencourt/helm/v3/pkg/chartutil"
+	"github.com/reynencourt/helm/v3/pkg/lint/support"
 )
 
 const templateTestBasedir = "./testdata/albatross"

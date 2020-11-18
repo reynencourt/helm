@@ -25,8 +25,8 @@ import (
 	"sigs.k8s.io/yaml"
 
 	"github.com/reynencourt/helm/v3/pkg/chart"
-	"helm.sh/helm/v3/pkg/chart/loader"
-	"helm.sh/helm/v3/pkg/chartutil"
+	"github.com/reynencourt/helm/v3/pkg/chart/loader"
+	"github.com/reynencourt/helm/v3/pkg/chartutil"
 )
 
 // ShowOutputFormat is the format of the output of `helm show`

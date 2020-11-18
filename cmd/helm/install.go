@@ -28,12 +28,12 @@ import (
 	"github.com/reynencourt/helm/v3/cmd/helm/require"
 	"github.com/reynencourt/helm/v3/pkg/action"
 	"github.com/reynencourt/helm/v3/pkg/chart"
-	"helm.sh/helm/v3/pkg/chart/loader"
-	"helm.sh/helm/v3/pkg/cli/output"
-	"helm.sh/helm/v3/pkg/cli/values"
-	"helm.sh/helm/v3/pkg/downloader"
-	"helm.sh/helm/v3/pkg/getter"
-	"helm.sh/helm/v3/pkg/release"
+	"github.com/reynencourt/helm/v3/pkg/chart/loader"
+	"github.com/reynencourt/helm/v3/pkg/cli/output"
+	"github.com/reynencourt/helm/v3/pkg/cli/values"
+	"github.com/reynencourt/helm/v3/pkg/downloader"
+	"github.com/reynencourt/helm/v3/pkg/getter"
+	"github.com/reynencourt/helm/v3/pkg/release"
 )
 
 const installDesc = `

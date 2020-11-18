@@ -23,11 +23,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"helm.sh/helm/v3/internal/tlsutil"
+	"github.com/reynencourt/helm/v3/internal/tlsutil"
 
 	"sigs.k8s.io/yaml"
 
-	"helm.sh/helm/v3/pkg/repo"
+	"github.com/reynencourt/helm/v3/pkg/repo"
 )
 
 // NewTempServerWithCleanup creates a server inside of a temp dir.

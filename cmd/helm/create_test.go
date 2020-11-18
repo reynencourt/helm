@@ -26,8 +26,8 @@ import (
 	"github.com/reynencourt/helm/v3/internal/test/ensure"
 	"github.com/reynencourt/helm/v3/pkg/chart"
 	"github.com/reynencourt/helm/v3/pkg/chart/loader"
-	"helm.sh/helm/v3/pkg/chartutil"
-	"helm.sh/helm/v3/pkg/helmpath"
+	"github.com/reynencourt/helm/v3/pkg/chartutil"
+	"github.com/reynencourt/helm/v3/pkg/helmpath"
 )
 
 func TestCreateCmd(t *testing.T) {

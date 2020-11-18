@@ -41,7 +41,7 @@ BINARY_VERSION ?= ${GIT_TAG}
 
 # Only set Version if building a tag or VERSION is set
 ifneq ($(BINARY_VERSION),)
-	LDFLAGS += -X helm.sh/helm/v3/internal/version.version=${BINARY_VERSION}
+	LDFLAGS += -X github.com/reynencourt/helm/v3/internal/version.version=${BINARY_VERSION}
 endif
 
 VERSION_METADATA = unreleased
@@ -50,9 +50,9 @@ ifneq ($(GIT_TAG),)
 	VERSION_METADATA =
 endif
 
-LDFLAGS += -X helm.sh/helm/v3/internal/version.metadata=${VERSION_METADATA}
-LDFLAGS += -X helm.sh/helm/v3/internal/version.gitCommit=${GIT_COMMIT}
-LDFLAGS += -X helm.sh/helm/v3/internal/version.gitTreeState=${GIT_DIRTY}
+LDFLAGS += -X github.com/reynencourt/helm/v3/internal/version.metadata=${VERSION_METADATA}
+LDFLAGS += -X github.com/reynencourt/helm/v3/internal/version.gitCommit=${GIT_COMMIT}
+LDFLAGS += -X github.com/reynencourt/helm/v3/internal/version.gitTreeState=${GIT_DIRTY}
 LDFLAGS += $(EXT_LDFLAGS)
 
 .PHONY: all
