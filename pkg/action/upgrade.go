@@ -20,6 +20,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	kubefake "github.com/reynencourt/helm/v3/pkg/kube/fake"
+	"github.com/reynencourt/helm/v3/pkg/storage"
+	"io/ioutil"
 	"strings"
 	"time"
 
@@ -96,6 +99,10 @@ type Upgrade struct {
 	PostRenderer postrender.PostRenderer
 	// DisableOpenAPIValidation controls whether OpenAPI validation is enforced.
 	DisableOpenAPIValidation bool
+
+	//reynen court changes to accomodate unit testing with dry-run. upgrade doesnt support client-only, so it tries to check if api-server
+	// is reachable. so @uday is including the clientonly
+	ClientOnly bool
 }
 
 // NewUpgrade creates a new Upgrade object with the given configuration.
@@ -107,10 +114,35 @@ func NewUpgrade(cfg *Configuration) *Upgrade {
 
 // Run executes the upgrade on the given release.
 func (u *Upgrade) Run(name string, chart *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
-	if err := u.cfg.KubeClient.IsReachable(); err != nil {
-		return nil, err
+	// @uday made added if to help in unit testing with dry-run and client-only
+	// else is from helm
+	if u.ClientOnly {
+		u.cfg.Capabilities = chartutil.DefaultCapabilities
+		u.cfg.Capabilities.APIVersions = append(u.cfg.Capabilities.APIVersions)
+		u.cfg.KubeClient = &kubefake.PrintingKubeClient{Out: ioutil.Discard}
+		mem := driver.NewMemory()
+		mem.SetNamespace(u.Namespace)
+		u.cfg.Releases = storage.Init(mem)
+		_ = u.cfg.Releases.Create(&release.Release{
+			Name: name,
+			Info: &release.Info{
+				Description: "",
+				Status:      release.StatusDeployed,
+				Notes:       "",
+			},
+			Chart:     nil,
+			Config:    nil,
+			Manifest:  "",
+			Hooks:     nil,
+			Version:   3,
+			Namespace: u.Namespace,
+			Labels:    nil,
+		})
+	} else {
+		if err := u.cfg.KubeClient.IsReachable(); err != nil {
+			return nil, err
+		}
 	}
-
 	// Make sure if Atomic is set, that wait is set as well. This makes it so
 	// the user doesn't have to specify both
 	u.Wait = u.Wait || u.Atomic
