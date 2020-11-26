@@ -17,6 +17,10 @@ limitations under the License.
 package action
 
 import (
+	kubefake "github.com/reynencourt/helm/v3/pkg/kube/fake"
+	"github.com/reynencourt/helm/v3/pkg/storage"
+	"github.com/reynencourt/helm/v3/pkg/storage/driver"
+	"io/ioutil"
 	"strings"
 	"time"
 
@@ -39,6 +43,8 @@ type Uninstall struct {
 	KeepHistory  bool
 	Timeout      time.Duration
 	Description  string
+	ClientOnly   bool
+	Namespace    string
 }
 
 // NewUninstall creates a new Uninstall object with the given configuration.
@@ -50,8 +56,32 @@ func NewUninstall(cfg *Configuration) *Uninstall {
 
 // Run uninstalls the given release.
 func (u *Uninstall) Run(name string) (*release.UninstallReleaseResponse, error) {
-	if err := u.cfg.KubeClient.IsReachable(); err != nil {
-		return nil, err
+	if !u.ClientOnly {
+		if err := u.cfg.KubeClient.IsReachable(); err != nil {
+			return nil, err
+		}
+	} else {
+		u.cfg.Capabilities = chartutil.DefaultCapabilities
+		u.cfg.Capabilities.APIVersions = append(u.cfg.Capabilities.APIVersions)
+		u.cfg.KubeClient = &kubefake.PrintingKubeClient{Out: ioutil.Discard}
+		mem := driver.NewMemory()
+		mem.SetNamespace(u.Namespace)
+		u.cfg.Releases = storage.Init(mem)
+		_ = u.cfg.Releases.Create(&release.Release{
+			Name: name,
+			Info: &release.Info{
+				Description: "",
+				Status:      release.StatusDeployed,
+				Notes:       "",
+			},
+			Chart:     nil,
+			Config:    nil,
+			Manifest:  "",
+			Hooks:     nil,
+			Version:   3,
+			Namespace: u.Namespace,
+			Labels:    nil,
+		})
 	}
 
 	if u.DryRun {
