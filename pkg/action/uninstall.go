@@ -39,6 +39,9 @@ type Uninstall struct {
 	KeepHistory  bool
 	Timeout      time.Duration
 	Description  string
+
+	//	Reynen Court specific
+	ClientOnly bool
 }
 
 // NewUninstall creates a new Uninstall object with the given configuration.
@@ -50,8 +53,10 @@ func NewUninstall(cfg *Configuration) *Uninstall {
 
 // Run uninstalls the given release.
 func (u *Uninstall) Run(name string) (*release.UninstallReleaseResponse, error) {
-	if err := u.cfg.KubeClient.IsReachable(); err != nil {
-		return nil, err
+	if !u.ClientOnly {
+		if err := u.cfg.KubeClient.IsReachable(); err != nil {
+			return nil, err
+		}
 	}
 
 	if u.DryRun {

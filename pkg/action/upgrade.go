@@ -20,6 +20,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	kubefake "helm.sh/helm/v3/pkg/kube/fake"
+	"helm.sh/helm/v3/pkg/storage"
+	"io/ioutil"
 	"strings"
 	"time"
 
@@ -98,6 +101,8 @@ type Upgrade struct {
 	PostRenderer postrender.PostRenderer
 	// DisableOpenAPIValidation controls whether OpenAPI validation is enforced.
 	DisableOpenAPIValidation bool
+	//Reynen Court specific changes
+	ClientOnly bool
 }
 
 // NewUpgrade creates a new Upgrade object with the given configuration.
@@ -109,8 +114,33 @@ func NewUpgrade(cfg *Configuration) *Upgrade {
 
 // Run executes the upgrade on the given release.
 func (u *Upgrade) Run(name string, chart *chart.Chart, vals map[string]interface{}) (*release.Release, error) {
-	if err := u.cfg.KubeClient.IsReachable(); err != nil {
-		return nil, err
+	//Reynen Court specific changes for UT
+	if u.ClientOnly {
+		u.cfg.Capabilities = chartutil.DefaultCapabilities
+		u.cfg.Capabilities.APIVersions = append(u.cfg.Capabilities.APIVersions)
+		u.cfg.KubeClient = &kubefake.PrintingKubeClient{Out: ioutil.Discard}
+		mem := driver.NewMemory()
+		mem.SetNamespace(u.Namespace)
+		u.cfg.Releases = storage.Init(mem)
+		_ = u.cfg.Releases.Create(&release.Release{
+			Name: name,
+			Info: &release.Info{
+				Description: "",
+				Status:      release.StatusDeployed,
+				Notes:       "",
+			},
+			Chart:     nil,
+			Config:    nil,
+			Manifest:  "",
+			Hooks:     nil,
+			Version:   3,
+			Namespace: u.Namespace,
+			Labels:    nil,
+		})
+	} else {
+		if err := u.cfg.KubeClient.IsReachable(); err != nil {
+			return nil, err
+		}
 	}
 
 	// Make sure if Atomic is set, that wait is set as well. This makes it so
