@@ -17,6 +17,7 @@ limitations under the License.
 package action
 
 import (
+	"github.com/reynencourt/helm/v3/pkg/chartutil"
 	"path"
 	"regexp"
 
@@ -133,6 +134,11 @@ type List struct {
 	Failed       bool
 	Pending      bool
 	Selector     string
+	//Reynen Court Specific
+	ClientOnly  bool
+	KubeVersion *chartutil.KubeVersion
+	APIVersions chartutil.VersionSet
+	Namespace   string
 }
 
 // NewList constructs a new *List
@@ -145,8 +151,24 @@ func NewList(cfg *Configuration) *List {
 
 // Run executes the list command, returning a set of matches.
 func (l *List) Run() ([]*release.Release, error) {
-	if err := l.cfg.KubeClient.IsReachable(); err != nil {
-		return nil, err
+
+	if !l.ClientOnly {
+		if err := l.cfg.KubeClient.IsReachable(); err != nil {
+			return nil, err
+		}
+	} else {
+		// Add mock objects in here so it doesn't use Kube API server
+		// NOTE(bacongobbler): used for `helm template`
+		//l.cfg.Capabilities = chartutil.DefaultCapabilities.Copy()
+		//if l.KubeVersion != nil {
+		//	l.cfg.Capabilities.KubeVersion = *l.KubeVersion
+		//}
+		//l.cfg.Capabilities.APIVersions = append(l.cfg.Capabilities.APIVersions, l.APIVersions...)
+		//l.cfg.KubeClient = &kubefake.PrintingKubeClient{Out: ioutil.Discard}
+		//
+		//mem := driver.NewMemory()
+		//mem.SetNamespace(l.Namespace)
+		//l.cfg.Releases = storage.Init(mem)
 	}
 
 	var filter *regexp.Regexp

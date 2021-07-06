@@ -47,8 +47,6 @@ import (
 	"github.com/reynencourt/helm/v3/pkg/release"
 	"github.com/reynencourt/helm/v3/pkg/releaseutil"
 	"github.com/reynencourt/helm/v3/pkg/repo"
-	"github.com/reynencourt/helm/v3/pkg/storage"
-	"github.com/reynencourt/helm/v3/pkg/storage/driver"
 )
 
 // releaseNameMaxLen is the maximum length of a release name.
@@ -207,9 +205,10 @@ func (i *Install) Run(chrt *chart.Chart, vals map[string]interface{}) (*release.
 		i.cfg.Capabilities.APIVersions = append(i.cfg.Capabilities.APIVersions, i.APIVersions...)
 		i.cfg.KubeClient = &kubefake.PrintingKubeClient{Out: ioutil.Discard}
 
-		mem := driver.NewMemory()
-		mem.SetNamespace(i.Namespace)
-		i.cfg.Releases = storage.Init(mem)
+		//Reynen Court specific changes
+		//mem := driver.NewMemory()
+		//mem.SetNamespace(i.Namespace)
+		//i.cfg.Releases = storage.Init(mem)
 	} else if !i.ClientOnly && len(i.APIVersions) > 0 {
 		i.cfg.Log("API Version list given outside of client only mode, this list will be ignored")
 	}
@@ -284,11 +283,17 @@ func (i *Install) Run(chrt *chart.Chart, vals map[string]interface{}) (*release.
 		}
 	}
 
+	//Reynen Court specific changes
+
 	// Bail out here if it is a dry run
-	if i.DryRun {
-		rel.Info.Description = "Dry run complete"
-		return rel, nil
-	}
+	//if i.DryRun {
+	//	//rel.Info.Description = "Dry run complete"
+	//	err = i.cfg.Releases.Create(rel)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	//return rel, nil
+	//}
 
 	if i.CreateNamespace {
 		ns := &v1.Namespace{
