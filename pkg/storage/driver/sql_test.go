@@ -20,9 +20,9 @@ import (
 	"testing"
 	"time"
 
-	sqlmock "github.com/DATA-DOG/go-sqlmock"
+	"github.com/DATA-DOG/go-sqlmock"
 
-	rspb "helm.sh/helm/v3/pkg/release"
+	rspb "github.com/reynencourt/helm/v3/pkg/release"
 )
 
 func TestSQLName(t *testing.T) {

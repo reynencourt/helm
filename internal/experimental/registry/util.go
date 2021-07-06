@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package registry // import "helm.sh/helm/v3/internal/experimental/registry"
+package registry // import "github.com/reynencourt/helm/v3/internal/experimental/registry"
 
 import (
 	"context"
@@ -23,7 +23,7 @@ import (
 	"time"
 
 	orascontext "github.com/deislabs/oras/pkg/context"
-	units "github.com/docker/go-units"
+	"github.com/docker/go-units"
 	"github.com/sirupsen/logrus"
 )
 

@@ -25,13 +25,13 @@ import (
 
 	"github.com/pkg/errors"
 
-	"helm.sh/helm/v3/internal/experimental/registry"
-	"helm.sh/helm/v3/internal/fileutil"
-	"helm.sh/helm/v3/internal/urlutil"
-	"helm.sh/helm/v3/pkg/getter"
-	"helm.sh/helm/v3/pkg/helmpath"
-	"helm.sh/helm/v3/pkg/provenance"
-	"helm.sh/helm/v3/pkg/repo"
+	"github.com/reynencourt/helm/v3/internal/experimental/registry"
+	"github.com/reynencourt/helm/v3/internal/fileutil"
+	"github.com/reynencourt/helm/v3/internal/urlutil"
+	"github.com/reynencourt/helm/v3/pkg/getter"
+	"github.com/reynencourt/helm/v3/pkg/helmpath"
+	"github.com/reynencourt/helm/v3/pkg/provenance"
+	"github.com/reynencourt/helm/v3/pkg/repo"
 )
 
 // VerificationStrategy describes a strategy for determining whether to verify a chart.
