@@ -17,6 +17,8 @@ limitations under the License.
 package action
 
 import (
+	kubefake "github.com/reynencourt/helm/v3/pkg/kube/fake"
+	"io/ioutil"
 	"strings"
 	"time"
 
@@ -41,7 +43,9 @@ type Uninstall struct {
 	Description  string
 
 	//	Reynen Court specific
-	ClientOnly bool
+	ClientOnly  bool
+	KubeVersion *chartutil.KubeVersion
+	APIVersions chartutil.VersionSet
 }
 
 // NewUninstall creates a new Uninstall object with the given configuration.
@@ -57,16 +61,23 @@ func (u *Uninstall) Run(name string) (*release.UninstallReleaseResponse, error) 
 		if err := u.cfg.KubeClient.IsReachable(); err != nil {
 			return nil, err
 		}
+	} else {
+		u.cfg.Capabilities = chartutil.DefaultCapabilities.Copy()
+		if u.KubeVersion != nil {
+			u.cfg.Capabilities.KubeVersion = *u.KubeVersion
+		}
+		u.cfg.Capabilities.APIVersions = append(u.cfg.Capabilities.APIVersions, u.APIVersions...)
+		u.cfg.KubeClient = &kubefake.PrintingKubeClient{Out: ioutil.Discard}
 	}
 
-	if u.DryRun {
-		// In the dry run case, just see if the release exists
-		r, err := u.cfg.releaseContent(name, 0)
-		if err != nil {
-			return &release.UninstallReleaseResponse{}, err
-		}
-		return &release.UninstallReleaseResponse{Release: r}, nil
-	}
+	//if u.DryRun {
+	//	// In the dry run case, just see if the release exists
+	//	r, err := u.cfg.releaseContent(name, 0)
+	//	if err != nil {
+	//		return &release.UninstallReleaseResponse{}, err
+	//	}
+	//	return &release.UninstallReleaseResponse{Release: r}, nil
+	//}
 
 	if err := chartutil.ValidateReleaseName(name); err != nil {
 		return nil, errors.Errorf("uninstall: Release name is invalid: %s", name)
